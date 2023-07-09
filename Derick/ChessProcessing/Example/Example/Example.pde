@@ -1,3 +1,6 @@
+final int MAIN = 0;
+final int GAME = 1;
+
 int windowWidth = 1080;
 int windowHeight = 720;
 
@@ -12,6 +15,9 @@ color startOverButtonColor = color(220);
 
 boolean startOver = false;
 
+
+int gameState = MAIN;
+
 void settings() {
   size(windowWidth, windowHeight);
 }
@@ -21,20 +27,31 @@ void setup() {
 }
 
 void draw() {
-  update();
-  
-  if (startOver) {
-    fill(startOverButtonColor);
-  } else {
-    fill(startButtonColor);
-  }
+  switch (gameState) {
+    case MAIN: 
+      update();
+      
+      if (startOver) {
+        fill(startOverButtonColor);
+      } else {
+        fill(startButtonColor);
+      }
 
-  rect(startButtonX, startButtonY, buttonWidth, buttonHeight);
-  
-  textSize(24);
-  fill(0, 0, 0);
-  textAlign(CENTER, CENTER);
-  text("Start the game", startButtonX + buttonWidth / 2, startButtonY + buttonHeight / 2 - 5);
+      rect(startButtonX, startButtonY, buttonWidth, buttonHeight);
+      
+      textSize(24);
+      fill(0, 0, 0);
+      textAlign(CENTER, CENTER);
+      text("Start the game", startButtonX + buttonWidth / 2, startButtonY + buttonHeight / 2 - 5);
+    break;
+    case GAME:
+      background(255);
+      // showing board
+      break;
+    default :
+        
+      break;	
+  }
 }
 
 boolean overButton(int x, int y, int width, int height) {
@@ -51,5 +68,20 @@ void update() {
     startOver = true;
   } else {
     startOver = false;
+  }
+}
+
+void mouseReleased() {
+  switch (gameState) {
+    case MAIN:
+      if (mouseX >= startButtonX && mouseX <= startButtonX+buttonWidth# &&
+      mouseY >= startButtonY && mouseY <= startButtonY+buttonHeight) {
+        gameState = GAME;
+      }
+    break;
+    case GAME:
+      break;
+    default:
+    break;
   }
 }

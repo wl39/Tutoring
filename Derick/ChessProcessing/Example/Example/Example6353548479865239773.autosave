@@ -1,0 +1,57 @@
+int windowWidth = 1080;
+int windowHeight = 720;
+
+int buttonWidth = 300;
+int buttonHeight = 80;
+
+int startButtonX = windowWidth/2 - buttonWidth/2;
+int startButtonY = windowHeight / 2 - buttonHeight / 2;
+
+color startButtonColor = color(255);
+color startOverButtonColor = color(220);
+
+boolean startOver = false;
+
+void settings() {
+  size(windowWidth, windowHeight);
+}
+
+void setup() {
+  background(255);
+}
+
+void draw() {
+  update();
+  
+  if (startOver) {
+    fill(startOverButtonColor);
+  } else {
+    fill(startButtonColor);
+  }
+
+  rect(startButtonX, startButtonY, buttonWidth, buttonHeight);
+  
+  textSize(24);
+  fill(0, 0, 0);
+  textAlign(CENTER, CENTER);
+  text("Start the game", startButtonX + buttonWidth / 2, startButtonY + buttonHeight / 2 - 5);
+}
+
+boolean overButton(int x, int y, int width, int height) {
+      println(mouseX + " : " + mouseY);
+
+  if (mouseX >= x && mouseX <= x+width &&
+    mouseY >= y && mouseY <= y+height) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+void update() {
+  if ( overButton(startButtonX, startButtonY, buttonWidth, buttonHeight) ) {
+    startOver = true;
+  } else {
+    startOver = false;
+  }
+}
